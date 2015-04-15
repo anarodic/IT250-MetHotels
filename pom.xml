@@ -23,6 +23,11 @@
             <version>${slf4j-release-version}</version>
         </dependency>
 
+<dependency>
+      <groupId>commons-io</groupId>
+	  <artifactId>commons-io</artifactId>
+      <version>1.4</version>
+    </dependency>
 
         <!-- Uncomment this to add support resource minification and runtime compilation -->
         <!--
