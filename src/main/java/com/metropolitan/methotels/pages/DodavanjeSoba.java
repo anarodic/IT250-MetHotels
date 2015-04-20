@@ -5,10 +5,15 @@
  */
 package com.metropolitan.methotels.pages;
 
+import com.metropolitan.methotels.entities.Soba;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.tapestry5.annotations.Property;
-import com.metropolitan.methotels.data.Soba;
-import org.apache.tapestry5.annotations.Persist;
+
+
+import org.apache.tapestry5.hibernate.annotations.CommitAfter;
+import org.apache.tapestry5.ioc.annotations.Inject;
+import org.hibernate.Session;
 
 /**
  *
@@ -16,20 +21,25 @@ import org.apache.tapestry5.annotations.Persist;
  */
 public class DodavanjeSoba {
 
-    @Persist
     @Property
-    private ArrayList<Soba> sobe;
+    private List<Soba> sobe;
     @Property
     private Soba soba;
+    @Inject
+    private Session session;
 
     void onActivate() {
         if (sobe == null) {
             sobe = new ArrayList<Soba>();
         }
+        sobe = session.createCriteria(Soba.class).list();
+        
+        
     }
 
+    @CommitAfter
     Object onSuccess() {
-        sobe.add(soba);
+        session.merge(soba);
         return this;
     }
 }
